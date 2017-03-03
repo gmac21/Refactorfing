@@ -15,7 +15,7 @@ class EmployeeSummaryDialog extends JDialog implements ActionListener {
     private final Vector<Object> allEmployees;
     private JButton back;
 
-    public EmployeeSummaryDialog(Vector<Object> allEmployees) {
+    EmployeeSummaryDialog(Vector<Object> allEmployees) {
         setTitle("Employee Summary");
         setModal(true);
         this.allEmployees = allEmployees;

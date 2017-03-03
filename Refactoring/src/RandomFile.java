@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -10,48 +11,58 @@ class RandomFile {
     public void createFile(String fileName) {
         RandomAccessFile file = null;
 
-        try
-        {
+        try {
             file = new RandomAccessFile(fileName, "rw");
 
-        }
-        catch (IOException ioException) {
+        } catch (IOException ioException) {
             JOptionPane.showMessageDialog(null, "Error processing file!");
             System.exit(1);
         }
 
-        finally {
-            try {
-                if (file != null)
-                    file.close();
-            }
-            catch (IOException ioException) {
-                JOptionPane.showMessageDialog(null, "Error closing file!");
-                System.exit(1);
-            }
-        }
     }
 
-    public void openWriteFile(String fileName) {
-        try
-        {
-            output = new RandomAccessFile(fileName, "rw");
-        }
-        catch (IOException ioException) {
+    public RandomAccessFile openFile(String s, RandomAccessFile file, String permission) {
+
+        try {
+            file = new RandomAccessFile(s, permission);
+            return file;
+
+        } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "File does not exist!");
         }
+        return null;
     }
 
-    public void closeWriteFile() {
+
+
+    public void openingWriteFile(String fileName) {
+        output = openFile(fileName, output, "rw");
+    }
+
+    public void openingReadFile(String fileName) {
+        input = openFile(fileName, input, "r");
+    }
+
+    public void close(RandomAccessFile Close){
+
+
         try
         {
-            if (output != null)
-                output.close();
+            if (Close != null)
+                Close.close();
         }
         catch (IOException ioException) {
             JOptionPane.showMessageDialog(null, "Error closing file!");
-            System.exit(1);
+            ioException.printStackTrace();
         }
+    }
+
+    public void closeWriteFile(){
+        close(output);
+    }
+
+    public void closeReadFile(){
+        close(input);
     }
 
     public long addRecords(Employee employeeToAdd) {
@@ -118,17 +129,7 @@ class RandomFile {
         }
     }
 
-    public void closeReadFile() {
-        try
-        {
-            if (input != null)
-                input.close();
-        }
-        catch (IOException ioException) {
-            JOptionPane.showMessageDialog(null, "Error closing file!");
-            System.exit(1);
-        }
-    }
+
 
     public long getFirst() {
         long byteToStart = 0;
