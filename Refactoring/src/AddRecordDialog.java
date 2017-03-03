@@ -112,48 +112,49 @@ class AddRecordDialog extends JDialog implements ActionListener {
 
     private boolean checkInput() {
         boolean valid = true;
+
+        final Color finalColor = new Color(255,150, 150);
         if (ppsField.getText().equals("")) {
-            ppsField.setBackground(new Color(255, 150, 150));
+            ppsField.setBackground(finalColor);
             valid = false;
         }
         if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
-            ppsField.setBackground(new Color(255, 150, 150));
+            ppsField.setBackground(finalColor);
             valid = false;
         }
         if (surnameField.getText().isEmpty()) {
-            surnameField.setBackground(new Color(255, 150, 150));
+            surnameField.setBackground(finalColor);
             valid = false;
         }
         if (firstNameField.getText().isEmpty()) {
-            firstNameField.setBackground(new Color(255, 150, 150));
+            firstNameField.setBackground(finalColor);
             valid = false;
         }
         if (genderCombo.getSelectedIndex() == 0) {
-            genderCombo.setBackground(new Color(255, 150, 150));
+            genderCombo.setBackground(finalColor);
             valid = false;
         }
         if (departmentCombo.getSelectedIndex() == 0) {
-            departmentCombo.setBackground(new Color(255, 150, 150));
+            departmentCombo.setBackground(finalColor);
             valid = false;
         }
         try {
-            Double.parseDouble(salaryField.getText());
-            if (Double.parseDouble(salaryField.getText()) < 0) {
-                salaryField.setBackground(new Color(255, 150, 150));
+            Double v =Double.parseDouble(salaryField.getText());
+            if (v < 0) {
+                salaryField.setBackground(finalColor);
                 valid = false;
             }
         }
         catch (NumberFormatException num) {
-            salaryField.setBackground(new Color(255, 150, 150));
+            salaryField.setBackground(finalColor);
             valid = false;
         }
         if (fullTimeCombo.getSelectedIndex() == 0) {
-            fullTimeCombo.setBackground(new Color(255, 150, 150));
+            fullTimeCombo.setBackground(finalColor);
             valid = false;
         }
         return valid;
     }
-
 
     private void setToWhite() {
         ppsField.setBackground(Color.WHITE);
